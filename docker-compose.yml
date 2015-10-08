@@ -1,0 +1,20 @@
+# docker compose to bring up Orchestrator
+
+orchestratorbe:
+  image: percona:latest
+  environment:
+    MYSQL_ROOT_PASSWORD: p3rc0na
+    MYSQL_DATABASE: orchestrator
+    MYSQL_USER: orchestrator
+    MYSQL_PASSWORD: MATCHinORCHESTRATORconf
+  ports:
+    - "3306"
+  volumes:
+    - /var/log/mysql
+
+orchestrator:
+  image: mysqlboy/orchestrator
+  ports:
+    - "3000:3000"
+  links:
+    - orchestratorbe
